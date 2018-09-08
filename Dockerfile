@@ -5,7 +5,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libcurl4-openssl-dev \
     libpcre3-dev \
-    libsodium-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
@@ -23,7 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install protobuf \
     && pecl install grpc \
     && pecl install libsodium \
-    && docker-php-ext-enable redis apcu protobuf grpc sodium gd mysqli pdo_mysql \
+    && docker-php-ext-enable redis apcu protobuf grpc gd mysqli pdo_mysql \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
 
