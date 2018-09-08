@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmcrypt-dev \
     libjpeg-dev \
     openssl \
+    libicu-dev \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) gettext \
@@ -22,7 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install protobuf \
     && pecl install grpc \
     && pecl install libsodium \
-    && docker-php-ext-enable redis apcu protobuf grpc sodium gd mysqli pdo_mysql
+    && docker-php-ext-enable redis apcu protobuf grpc sodium gd mysqli pdo_mysql \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
 
 ENV PHALCON_VERSION=3.4.0
 
@@ -33,7 +36,7 @@ RUN curl -sSL "https://codeload.github.com/phalcon/cphalcon/tar.gz/v${PHALCON_VE
     && cd ../../ \
     && rm -r cphalcon-${PHALCON_VERSION} \
     && docker-php-ext-enable phalcon \
-    && mkdir -p /var/www/html/{cache,public}
+    && mkdir /var/www/html/cache
 
 # TODO: run php-fpm rootless (master too)
 # TODO: configure php ini variables like previous Dockerfile
