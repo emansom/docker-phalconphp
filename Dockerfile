@@ -21,7 +21,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install apcu \
     && pecl install protobuf \
     && pecl install grpc \
-    && pecl install libsodium \
     && docker-php-ext-enable redis apcu protobuf grpc gd mysqli pdo_mysql \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
