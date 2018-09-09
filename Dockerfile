@@ -37,7 +37,8 @@ RUN curl -sSL "https://codeload.github.com/phalcon/cphalcon/tar.gz/v${PHALCON_VE
     && cd ../../ \
     && rm -r cphalcon-${PHALCON_VERSION} \
     && docker-php-ext-enable phalcon \
-    && mkdir /var/www/html/cache
+    && mkdir /var/www/html/cache \
+    && chown www-data:www-data /var/www/html/cache
 
 # TODO: run php-fpm rootless (master too)
 # TODO: configure php ini variables like previous Dockerfile
