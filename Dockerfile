@@ -1,17 +1,20 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="ewout@freedom.nl"
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libssl-dev \
-    libcurl4-openssl-dev \
-    libpcre3-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
+RUN apk add --no-cache --virtual .persistent-deps \
+    pcre-dev \
+    freetype-dev \
+    jpeg-dev \
     libpng-dev \
-    libmcrypt-dev \
-    libjpeg-dev \
-    openssl \
-    libicu-dev \
+    icu-dev \
+    libintl \
+    gettext-dev \
+    autoconf \
+    g++ \
+    make \
+    bash \
+    file \
+    re2c \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) gettext \
