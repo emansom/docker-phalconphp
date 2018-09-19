@@ -44,6 +44,8 @@ RUN set -xe; \
     \
     docker-php-ext-install intl; \
     \
+    docker-php-ext-enable intl; \
+    \
     apk del .phalcon-deps-build-deps
 
 # Environment variables used in next build step
