@@ -1,17 +1,19 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="ewout@freedom.nl"
 
+# Install shared libraries needed by several dependencies of Phalcon
+RUN set -xe; \
+    \
+    apk add --no-cache --virtual .phalcon-persistent-deps \
+         pcre-dev \
+         icu-dev \
+         libintl \
+         gettext-dev
+
 # Install, compile and configure all dependencies for Phalcon
 RUN set -xe; \
     \
     apk add --no-cache --virtual .phalcon-deps-build-deps \
-         pcre-dev \
-         freetype-dev \
-         jpeg-dev \
-         libpng-dev \
-         icu-dev \
-         libintl \
-         gettext-dev \
          autoconf \
          g++ \
          make \
@@ -20,31 +22,7 @@ RUN set -xe; \
          re2c \
     ; \
     \
-    docker-php-ext-install -j$(nproc) mysqli; \
-    \
-    docker-php-ext-install -j$(nproc) pdo_mysql; \
-    \
     docker-php-ext-install -j$(nproc) gettext; \
-    \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
-    \
-    docker-php-ext-install -j$(nproc) gd; \
-    \
-    pecl install redis; \
-    \
-    pecl install apcu; \
-    \
-    pecl install protobuf; \
-    \
-    pecl install grpc; \
-    \
-    docker-php-ext-enable redis apcu protobuf grpc gd mysqli pdo_mysql; \
-    \
-    docker-php-ext-configure intl; \
-    \
-    docker-php-ext-install intl; \
-    \
-    docker-php-ext-enable intl; \
     \
     apk del .phalcon-deps-build-deps
 
