@@ -69,12 +69,16 @@ RUN set -xe; \
     \
     apk del .phalcon-build-deps
 
-# Create cache directory, used by Phalcon by default usually
+# Create cache and .phalcon directory, used by Phalcon
 RUN set -xe; \
     \
     mkdir /var/www/html/cache; \
     \
-    chown www-data:www-data /var/www/html/cache
+    chown www-data:www-data /var/www/html/cache; \
+    \
+    mkdir /var/www/html/.phalcon; \
+    \
+    chown www-data:www-data /var/www/html/.phalcon
 
 # TODO: run php-fpm rootless (master too)
 # TODO: configure php ini variables like previous Dockerfile
