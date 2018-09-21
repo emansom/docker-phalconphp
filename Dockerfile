@@ -80,5 +80,33 @@ RUN set -xe; \
     \
     chown www-data:www-data /var/www/html/.phalcon
 
+# Configure secure defaults for PHP
+RUN set -ex; \
+    \
+    { \
+        echo '[PHP]'; \
+        echo 'expose_php = Off'; \
+        echo 'error_reporting = E_ALL'; \
+        echo 'display_errors = Off'; \
+        echo 'display_startup_errors = Off'; \
+        echo 'log_errors = On'; \
+        echo 'ignore_repeated_errors = Off'; \
+        echo 'error_log = /proc/self/fd/2'; \
+        echo 'open_basedir = /var/www/html/'; \
+        echo 'doc_root = /var/www/html/'; \
+        echo 'allow_url_fopen = Off'; \
+        echo 'allow_url_include = Off'; \
+        echo 'enable_dl = Off'; \
+        echo 'html_errors = Off'; \
+        echo 'memory_limit = 8M'; \
+        echo; \
+        echo '[Session]'; \
+        echo 'session.use_strict_mode = On'; \
+        echo 'session.use_cookies = On'; \
+        echo 'session.use_only_cookies = On'; \
+        echo 'session.sid_length = 52'; \
+        echo 'session.sid_bits_per_character = 5'; \
+    } | tee $PHP_INI_DIR/conf.d/99-secure-defaults.ini
+
 # TODO: run php-fpm rootless (master too)
 # TODO: configure php ini variables like previous Dockerfile
