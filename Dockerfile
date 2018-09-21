@@ -99,6 +99,9 @@ RUN set -ex; \
         echo 'enable_dl = Off'; \
         echo 'html_errors = Off'; \
         echo 'memory_limit = 8M'; \
+        echo 'disable_functions = escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, phpinfo, phpversion, php_uname, putenv'; \
+        echo 'max_input_time = 60'; \
+        echo 'max_execution_time = 86400'; \
         echo; \
         echo '[Session]'; \
         echo 'session.use_strict_mode = On'; \
