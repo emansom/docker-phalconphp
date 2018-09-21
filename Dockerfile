@@ -93,7 +93,6 @@ RUN set -ex; \
         echo 'ignore_repeated_errors = Off'; \
         echo 'error_log = /proc/self/fd/2'; \
         echo 'open_basedir = /var/www/html/'; \
-        echo 'doc_root = /var/www/html/'; \
         echo 'allow_url_fopen = Off'; \
         echo 'allow_url_include = Off'; \
         echo 'enable_dl = Off'; \
