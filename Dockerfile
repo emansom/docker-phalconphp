@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3.0-fpm-alpine3.8
 LABEL maintainer="ewout@freedom.nl"
 
 # Install shared libraries needed by several dependencies of Phalcon
@@ -27,8 +27,8 @@ RUN set -xe; \
     apk del .phalcon-deps-build-deps
 
 # Environment variables used in next build step
-ENV PHALCON_VERSION 3.4.1
-ENV PHALCON_CHECKSUM="5afcbb804b18768508bb53c7762f8daa6090a74c915de58afde1e36bfcc197c6"
+ENV PHALCON_VERSION 3.4.2
+ENV PHALCON_CHECKSUM="217a4519c5e4e86cc9dacb30803a2dd7b77089e0fa8d31bb10c96163f18d6a9e"
 
 # Download, verify checksum and compile, install Phalcon
 RUN set -xe; \
